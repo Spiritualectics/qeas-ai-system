@@ -1,13 +1,23 @@
 """
-QEAS API Server with Security
+QEAS API Server with CORS
 Author: Badru Michael Oluwarotimi
 """
 from fastapi import FastAPI, Header, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import Optional
 from qeas_core import calculate_qeas_score
 
-app = FastAPI(title="QEAS API", description="Quantifiable Energy-Aura Scale API with Key Protection")
+app = FastAPI(title="QEAS API", description="Quantifiable Energy-Aura Scale API with CORS and Key Protection")
+
+# Add CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allow all for now; can restrict later
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 VALID_API_KEY = "spiritualectics2025"
 
